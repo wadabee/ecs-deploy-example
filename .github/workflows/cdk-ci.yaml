@@ -7,6 +7,11 @@ on:
   pull_request:
     branches: ["main"]
     paths-ignore: ["app/**"]
+
+defaults:
+  run:
+    working-directory: infra
+
 jobs:
   cdk_ci:
     name: "CDK CI"
