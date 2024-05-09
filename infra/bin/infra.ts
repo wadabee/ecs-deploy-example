@@ -13,3 +13,5 @@ new FrontendStack(app, "ExampleFrontendStack", {
   identityPoolId: backend.identityPoolId,
   apiEndpoint: backend.webApiUrl,
 });
+
+console.log("TEST");

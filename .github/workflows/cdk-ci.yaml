@@ -9,8 +9,8 @@ on:
     paths-ignore: ["app/**"]
 
 defaults:
-  run:
-    working-directory: ./infra
+    run:
+      working-directory: ./infra
 
 jobs:
   cdk_ci:
@@ -31,6 +31,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
+          cache-dependency-path: '**/package-lock.json'
 
       - name: Setup dependencies
         run: npm ci
