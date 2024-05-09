@@ -25,15 +25,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          working-directory: ./infra
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-          working-directory: ./infra
+          cache-dependency-path: '**/package-lock.json'
 
       - name: Setup dependencies
         run: cd infra && npm ci
