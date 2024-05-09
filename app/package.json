@@ -12,6 +12,8 @@
     "api:dev": "npm -w packages/api run start:dev",
     "api:start:prod": "npm -w packages/api run start:prod",
     "api:build": "npm -w packages/api run build",
+    "api:test": "npm  -w packages/api run test",
+    "api:lint": "npm  -w packages/api run lint",
     "api:db:generate": "npm -w packages/api run db:generate",
     "api:db:migrate:dev": "npm -w packages/api run db:migrate:dev",
     "api:docker:build": "docker build . -t ecs-deploy-example -f ./api.Dockerfile"
