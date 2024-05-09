@@ -34,13 +34,13 @@ jobs:
           cache-dependency-path: '**/package-lock.json'
 
       - name: Setup dependencies
-        run: cd infra && npm ci
+        run: npm ci
 
       - name: Unit tests
-        run: cd infra && npm run test
+        run: npm run test
 
       - name: CDK Diff Check
-        run: cd infra && npm run cdk diff
+        run: npm run cdk diff
         env:
           AWS_DEFAULT_REGION: "ap-northeast-1"
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
