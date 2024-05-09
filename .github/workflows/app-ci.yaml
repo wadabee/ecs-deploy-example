@@ -1,0 +1,52 @@
+name: cdk-ci
+
+on:
+  # push:
+  #   branches: ["main"]
+  #   paths-ignore: ['app/**']
+  pull_request:
+    branches: ["main"]
+    paths-ignore: ["infra/**"]
+
+defaults:
+  run:
+    working-directory: ./app
+
+jobs:
+  cdk_ci:
+    name: "App CI"
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
+
+      - name: Setup dependencies
+        run: npm ci
+
+      - name: Web Lint
+        run: npm run web:lint
+
+      - name: Web Build
+        run: npm run web:build
+
+      - name: API Lint
+        run: npm run api:lint
+
+      - name: API Test
+        run: npm run api:test
+
+      - name: API Build
+        run: npm run api:build
