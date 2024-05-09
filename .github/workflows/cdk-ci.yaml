@@ -8,6 +8,10 @@ on:
     branches: ["main"]
     paths-ignore: ["app/**"]
 
+defaults:
+    run:
+      working-directory: ./infra
+
 jobs:
   cdk_ci:
     name: "CDK CI"
@@ -27,6 +31,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
+          working-directory: ./infra
 
       - name: Setup dependencies
         run: cd infra && npm ci
