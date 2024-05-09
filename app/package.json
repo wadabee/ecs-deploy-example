@@ -1,0 +1,26 @@
+{
+  "name": "app",
+  "private": true,
+  "version": "0.0.6",
+  "scripts": {
+    "prettier": "prettier --write \"packages/*/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+    "lint": "run-s root:lint web:lint cdk:lint",
+    "root:lint": "npx prettier --write .",
+    "web:dev": "npm -w packages/web run dev",
+    "web:build": "npm -w packages/web run build",
+    "web:lint": "npm -w packages/web run lint",
+    "api:dev": "npm -w packages/api run start:dev",
+    "api:start:prod": "npm -w packages/api run start:prod",
+    "api:build": "npm -w packages/api run build",
+    "api:db:generate": "npm -w packages/api run db:generate",
+    "api:db:migrate:dev": "npm -w packages/api run db:migrate:dev",
+    "api:docker:build": "docker build . -t ecs-deploy-example -f ./api.Dockerfile"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.2.5"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}
