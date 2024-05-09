@@ -1,20 +1,14 @@
-name: app-ci
+name: deploy
 
-on:
-  # push:
-  #   branches: ["main"]
-  #   paths-ignore: ['app/**']
-  pull_request:
-    branches: ["main"]
-    paths-ignore: ["infra/**"]
+on: workflow_dispatch
 
 defaults:
   run:
-    working-directory: ./app
+    working-directory: ./infra
 
 jobs:
   cdk_ci:
-    name: "App CI"
+    name: "Deploy using CDK"
     runs-on: ubuntu-latest
 
     strategy:
@@ -36,17 +30,9 @@ jobs:
       - name: Setup dependencies
         run: npm ci
 
-      - name: Web Lint
-        run: npm run web:lint
-
-      - name: Web Build
-        run: npm run web:build
-
-      - name: API Lint
-        run: npm run api:lint
-
-      - name: API Test
-        run: npm run api:test
-
-      - name: API Build
-        run: npm run api:build
+      - name: CDK Deploy
+        run: npm run cdk deploy -- --all --require-approval never
+        env:
+          AWS_DEFAULT_REGION: "ap-northeast-1"
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
